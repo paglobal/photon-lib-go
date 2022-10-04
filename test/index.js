@@ -17,7 +17,8 @@ ipc.on("open", () => {
   output.innerHTML += "Status: Connected\n";
 });
 
-ipc.on("message", (payload) => {
+ipc.on("message", (payload, event) => {
   output.innerHTML += "Server: " + payload.message + "\n";
   output.innerHTML += "Server: " + payload.id + "\n";
+  output.innerHTML += "Event: " + event + "\n";
 });

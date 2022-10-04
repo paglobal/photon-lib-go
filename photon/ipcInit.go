@@ -20,13 +20,13 @@ var onEvents IPCHubEventsMap = make(IPCHubEventsMap)
 var onceEvents IPCHubEventsMap = make(IPCHubEventsMap)
 var ipcs IPCMap = make(IPCMap)
 
-var IPCHubInstance IPCHub = IPCHub{
+var IPCHub _IPCHub = _IPCHub{
 	onEvents,
 	onceEvents,
 	ipcs,
 }
 
-func IPCInit() {
+func IPCInit(ipcPort string) {
 	router := gin.Default()
 
 	router.GET(
@@ -47,10 +47,10 @@ func IPCInit() {
 				"",
 			}
 
-			IPCHubInstance.AddIPC(&ipc)
+			IPCHub.AddIPC(&ipc)
 
 			defer socket.Close()
-			defer IPCHubInstance.RemoveIPC(&ipc)
+			defer IPCHub.RemoveIPC(&ipc)
 
 			for {
 				//Read message from browser
@@ -65,16 +65,16 @@ func IPCInit() {
 				onceEvents := ipc.ReturnEventsMap("once")
 
 				for _, v := range onEvents[data.Event] {
-					v(data.Payload, &ipc)
+					v(data.Payload, data.Event, &ipc)
 				}
 
 				for _, v := range onceEvents[data.Event] {
-					v(data.Payload, &ipc)
+					v(data.Payload, data.Event, &ipc)
 				}
 
 				delete(onceEvents, data.Event)
 			}
 		})
 
-	router.Run(":53174")
+	router.Run(ipcPort)
 }
