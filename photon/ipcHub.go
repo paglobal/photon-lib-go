@@ -12,13 +12,13 @@ type IPCHubEventsMap map[string][]IPCHubCallback
 
 type IPCMap map[string]*IPC
 
-type IPCHub struct {
+type _IPCHub struct {
 	OnEvents   IPCHubEventsMap
 	OnceEvents IPCHubEventsMap
 	IPCS       IPCMap
 }
 
-func (ipcHub *IPCHub) AddIPC(ipc *IPC) {
+func (ipcHub *_IPCHub) AddIPC(ipc *IPC) {
 	id := uuid.New()
 	idString := id.String()
 	ipcHub.IPCS[idString] = ipc
@@ -27,14 +27,14 @@ func (ipcHub *IPCHub) AddIPC(ipc *IPC) {
 	ipcHub.TriggerCallbacks("add", ipc.ID)
 }
 
-func (ipcHub *IPCHub) RemoveIPC(ipc *IPC) {
+func (ipcHub *_IPCHub) RemoveIPC(ipc *IPC) {
 	idString := ipc.ID
 	delete(ipcHub.IPCS, idString)
 
 	ipcHub.TriggerCallbacks("remove", ipc.ID)
 }
 
-func (ipcHub *IPCHub) TriggerCallbacks(event string, ipcID string) {
+func (ipcHub *_IPCHub) TriggerCallbacks(event string, ipcID string) {
 	onEvents := ipcHub.OnEvents
 	onceEvents := ipcHub.OnceEvents
 
@@ -49,15 +49,15 @@ func (ipcHub *IPCHub) TriggerCallbacks(event string, ipcID string) {
 	delete(onceEvents, event)
 }
 
-func (ipcHub *IPCHub) On(event string, callback IPCHubCallback) func() {
+func (ipcHub *_IPCHub) On(event string, callback IPCHubCallback) func() {
 	return ipcHub.RegisterEvent(event, callback, "on")
 }
 
-func (ipcHub *IPCHub) Once(event string, callback IPCHubCallback) func() {
+func (ipcHub *_IPCHub) Once(event string, callback IPCHubCallback) func() {
 	return ipcHub.RegisterEvent(event, callback, "once")
 }
 
-func (ipcHub *IPCHub) RegisterEvent(event string, callback IPCHubCallback, t string) func() {
+func (ipcHub *_IPCHub) RegisterEvent(event string, callback IPCHubCallback, t string) func() {
 	var eventsMap IPCHubEventsMap
 	if t == "on" {
 		eventsMap = ipcHub.OnEvents
@@ -88,6 +88,6 @@ func (ipcHub *IPCHub) RegisterEvent(event string, callback IPCHubCallback, t str
 	}
 }
 
-func (ipcHub *IPCHub) GetIPC(ipcID string) *IPC {
+func (ipcHub *_IPCHub) GetIPC(ipcID string) *IPC {
 	return ipcHub.IPCS[ipcID]
 }

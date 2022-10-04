@@ -7,7 +7,9 @@ import (
 	"github.com/gorilla/websocket"
 )
 
-type Callback func(payload Payload, ipc *IPC)
+type Payload interface{}
+
+type Callback func(payload Payload, event string, ipc *IPC)
 
 type EventsMap map[string][]Callback
 
@@ -17,8 +19,6 @@ type IPC struct {
 	Socket     *websocket.Conn
 	ID         string
 }
-
-type Payload map[string]interface{}
 
 type Data struct {
 	Event   string  `json:"event"`

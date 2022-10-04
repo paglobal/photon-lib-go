@@ -10,7 +10,7 @@ import (
 )
 
 //serve embedded static frontend files
-func Serve(content embed.FS, dir string) {
+func Serve(content embed.FS, dir string, fileServerPort string) {
 	router := gin.Default()
 
 	static, err := fs.Sub(content, dir)
@@ -19,5 +19,5 @@ func Serve(content embed.FS, dir string) {
 	}
 	router.StaticFS("/", http.FS(static))
 
-	router.Run(":53172")
+	router.Run(fileServerPort)
 }
