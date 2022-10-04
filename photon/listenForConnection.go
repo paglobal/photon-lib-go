@@ -19,7 +19,7 @@ func ListenForConnection(fileServerPort string) {
 		// Reached this point: server is up and running!
 		break
 	}
-	log.Println("SERVER UP AND RUNNING!!!")
+	log.Println("Server up and running!")
 }
 
 func listen(port string) string {
