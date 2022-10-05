@@ -35,7 +35,7 @@ func printMessage(p photon.Payload, e string, ipc *photon.IPC) {
 
 	ipc.Emit("message", payload)
 	messageInfo := MessageInfo{}
-	photon.ToStruct[MessageInfo](p, &messageInfo)
+	photon.ToStruct(p, &messageInfo)
 	fmt.Println(p)
 	fmt.Println(messageInfo)
 }
