@@ -21,9 +21,10 @@
 # Go workspace file
 go.work
 
-# Photon dist files
-test/dist/bin/*
-test/dist/static/*
+# Photon dist folder
+test/dist/
+
+
 
 
 ###########!!!========= Frontend =========!!!###########
