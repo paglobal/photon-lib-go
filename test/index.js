@@ -1,8 +1,10 @@
-import { ipc } from "photon-lib-js";
+import { ipcInit } from "photon-lib-js";
 
 var input = document.getElementById("input");
 var output = document.getElementById("output");
 var button = document.querySelector("button");
+
+const ipc = ipcInit("53174");
 
 const send = () => {
   ipc.emit("message", {

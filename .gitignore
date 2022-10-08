@@ -1,4 +1,4 @@
-###########!!!========= Golang =========!!!###########
+###########!!!========= Backend =========!!!###########
 # If you prefer the allow list template instead of the deny list, see community template:
 # https://github.com/github/gitignore/blob/main/community/Golang/Go.AllowList.gitignore
 #
@@ -21,9 +21,12 @@
 # Go workspace file
 go.work
 
+# Photon dist files
+test/dist/bin/*
+test/dist/static/*
 
 
-###########!!!========= Node =========!!!###########
+###########!!!========= Frontend =========!!!###########
 *.swp
 
 # Logs
