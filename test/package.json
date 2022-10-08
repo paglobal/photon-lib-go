@@ -13,7 +13,7 @@
     "build": "npm run build-js && npm run build-go",
     "dev-webview": "concurrently \"npm run dev-js\" \"npm run dev-webview-go\"",
     "build-webview": "npm run build-js && npm run build-webview-go",
-    "install-all": "npm install && go mod tidy",
+    "photon-init": "npm install && go mod tidy && mkdir dist && mkdir dist/bin && mkdir dist/static && touch dist/static/index.html",
     "start": "./dist/bin/app",
     "start-webview": "./dist/bin/app-webview"
   },
